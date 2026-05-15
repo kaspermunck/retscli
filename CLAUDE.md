@@ -4,7 +4,7 @@ A CLI for querying Danish legal documents via the Retsinformation REST API.
 
 ## Stack
 
-- Go (1.22+), structured as a cobra CLI
+- Go (1.25+), structured as a cobra CLI
 - `rets/` package: Retsinformation API client + typed structs + table/CSV
   formatters
 - `cmd/` package: cobra subcommands, one file per subcommand
@@ -78,14 +78,12 @@ go build -o retscli .            # builds binary at ./retscli
 go install .                     # installs to $GOBIN (usually ~/go/bin)
 ```
 
-If `go build` produces a binary that crashes with `missing LC_UUID load
-command` on macOS, build with `-ldflags='-linkmode=external'` and re-sign
-with `codesign --force --sign - retscli`. This is a known interaction between
-recent Go and the Claude Code sandbox; the standard install path
-(`go install .`) is fine outside the sandbox.
+`go.mod` pins `go 1.25.0` so the modern macOS toolchain emits `LC_UUID` —
+older toolchains produced binaries dyld rejected with "missing LC_UUID load
+command".
 
 ## Skill
 
-Single skill `retscli` at `~/dev/claude-skills/retscli/SKILL.md` covers all
-subcommands — Claude triages the user's question to the right one. Matches the
-pattern used by `virkcli` and `dst`.
+A single skill `rets` ships in this repo at `.claude/skills/rets/SKILL.md` and
+covers all subcommands — Claude triages the user's question to the right one.
+See the README for install instructions.

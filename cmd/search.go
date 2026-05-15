@@ -62,6 +62,9 @@ the title. Combine with --type (LOV, LBK, BEK, CIR, VEJ, ...), --year, and
 		if err != nil {
 			return err
 		}
+		if Envelope {
+			return encodeJSON(rets.Wrap("LawSearch", resp))
+		}
 		if searchJSON {
 			return encodeJSON(resp)
 		}

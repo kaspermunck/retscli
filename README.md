@@ -4,23 +4,29 @@ A command-line client for the Retsinformation REST API — Denmark's official
 legal information system (laws, executive orders, circulars, guidance,
 parliamentary bills).
 
-Part of a suite alongside [`dstcli`](https://github.com/kaspermunck/dstcli)
-(Statistics Denmark) and [`virkcli`](https://github.com/kaspermunck/virkcli)
-(Danish company registry).
-
 ## Install
 
-```bash
+Via Homebrew (recommended):
+
+```sh
+brew install kaspermunck/tap/retscli
+```
+
+From source:
+
+```sh
 go install github.com/kaspermunck/retscli@latest
 ```
 
-Or build from source:
+## Claude Code skill
 
-```bash
-git clone <repo>
-cd retscli
-go build -o retscli .
+A [Claude Code](https://claude.com/claude-code) skill ships inside the Homebrew formula. After `brew install`, enable it once with the symlink Homebrew prints in its caveats:
+
+```sh
+mkdir -p ~/.claude/skills && ln -sfn "$(brew --prefix retscli)/share/retscli/skill" ~/.claude/skills/rets
 ```
+
+Re-run `brew upgrade retscli` to update both the binary and the skill atomically.
 
 ## Usage
 

@@ -48,6 +48,9 @@ parsed struct.`,
 			if err != nil {
 				return err
 			}
+			if Envelope {
+				return encodeJSON(rets.Wrap("Paragraph", p))
+			}
 			if getJSON {
 				return encodeJSON(p)
 			}
@@ -77,6 +80,9 @@ parsed struct.`,
 		law, err := client.Get(year, number, getInclude)
 		if err != nil {
 			return err
+		}
+		if Envelope {
+			return encodeJSON(rets.Wrap("Law", law))
 		}
 		if getJSON {
 			return encodeJSON(law)

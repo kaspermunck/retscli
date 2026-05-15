@@ -1,0 +1,64 @@
+version: 2
+
+project_name: retscli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+    ignore:
+      - goos: windows
+        goarch: arm64
+
+archives:
+  - formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - src: .claude/skills/rets/SKILL.md
+        dst: skill/SKILL.md
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  github:
+    owner: kaspermunck
+    name: retscli
+
+brews:
+  - name: retscli
+    repository:
+      owner: kaspermunck
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/kaspermunck/retscli
+    description: "CLI for querying Danish legal information (love, bekendtgørelser) via Retsinformation API"
+    license: MIT
+    install: |
+      bin.install "retscli"
+      pkgshare.install "skill"
+    caveats: |
+      To enable the Claude Code skill, run once:
+        mkdir -p ~/.claude/skills && ln -sfn #{opt_pkgshare}/skill ~/.claude/skills/rets
+    test: |
+      system "#{bin}/retscli", "--help"
