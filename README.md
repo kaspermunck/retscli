@@ -101,6 +101,18 @@ with full OpenAPI docs at `/docs`. No authentication required.
     └── format.go        # table/CSV printers
 ```
 
+## Acknowledgements
+
+`retscli` accesses Danish legal texts via `retsinformation-api.dk` — a public REST mirror of [Retsinformation](https://www.retsinformation.dk), the official legal information system operated by [Civilstyrelsen](https://civilstyrelsen.dk) under the Danish Ministry of Justice. The canonical source for Danish legal texts is retsinformation.dk; the mirror is community-maintained.
+
+Danish legal texts (love, lovbekendtgørelser, bekendtgørelser, cirkulærer, vejledninger) are in the public domain under Danish copyright law.
+
+`retscli` is an independent open-source tool and is not affiliated with or endorsed by Civilstyrelsen, retsinformation.dk, or the maintainers of the API mirror.
+
+When citing a specific legal text in published work, credit the source:
+
+> Kilde: Retsinformation ([retsinformation.dk](https://www.retsinformation.dk))
+
 ## License
 
-MIT (or your preference — repo currently has no LICENSE file).
+This software is released under the [MIT License](LICENSE). The legal texts it fetches are in the public domain.
